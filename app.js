@@ -12,8 +12,17 @@ let squareObjects = [];  // 存储方块对象
 let circleObjects = [];  // 存储圆形对象
 let imageObjects = [];   // 存储图像对象
 
-let image = new Image();
-image.src = 'pic.jpg';  // 图像路径
+let uploadedImage = null;  // 用来存储上传的图片
+
+// 切换菜单显示/隐藏
+function toggleMenu() {
+  const menuContainer = document.getElementById("menuContainer");
+  if (menuContainer.style.display === "none") {
+    menuContainer.style.display = "block";
+  } else {
+    menuContainer.style.display = "none";
+  }
+}
 
 function initialize() {
     const width = window.innerWidth;
@@ -99,7 +108,7 @@ function drawMovingCircles() {
         if (circle.y < 0 || circle.y > circleCanvas.height - circle.radius) circle.vy = -circle.vy;
 
         ctx.beginPath();
-        ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);  // 绘制一个圆形
+        ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
         ctx.fillStyle = '#00ff00';
         ctx.fill();
     });
@@ -117,13 +126,11 @@ function drawMovingImages() {
         if (imgObj.x < 0 || imgObj.x > imageCanvas.width - imgObj.size) imgObj.vx = -imgObj.vx;
         if (imgObj.y < 0 || imgObj.y > imageCanvas.height - imgObj.size) imgObj.vy = -imgObj.vy;
 
-        ctx.drawImage(imgObj.img, imgObj.x, imgObj.y, imgObj.size, imgObj.size);  // 绘制图像
+        ctx.drawImage(imgObj.img, imgObj.x, imgObj.y, imgObj.size, imgObj.size);
     });
 }
 
 // 上传图片功能
-let uploadedImage = null;
-
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (file) {
@@ -132,21 +139,27 @@ function handleFileUpload(event) {
             uploadedImage = new Image();
             uploadedImage.src = e.target.result;
             uploadedImage.onload = function() {
-                addImage(uploadedImage);
+                alert('图片上传成功！');
             }
         };
         reader.readAsDataURL(file);
+    }
 }
 
-function addImage(image) {
-    imageObjects.push({
-        x: Math.random() * imageCanvas.width,
-        y: Math.random() * imageCanvas.height,
-        size: 30 + Math.random() * 50,
-        vx: 2 + Math.random() * 3,
-        vy: 2 + Math.random() * 3,
-        img: image
-    });
+// 点击 "Add Image" 后，只有上传了图片才显示，否则提示上传图片
+function addImage() {
+    if (uploadedImage) {
+        imageObjects.push({
+            x: Math.random() * imageCanvas.width,
+            y: Math.random() * imageCanvas.height,
+            size: 30 + Math.random() * 50,
+            vx: 2 + Math.random() * 3,
+            vy: 2 + Math.random() * 3,
+            img: uploadedImage
+        });
+    } else {
+        alert("请先上传图片！");
+    }
 }
 
 // 添加方块
@@ -171,16 +184,14 @@ function addCircle() {
     });
 }
 
-// 添加元素批量添加功能
+// 批量添加元素（随机生成方块或圆形）
 function addMultipleElements(count) {
     for (let i = 0; i < count; i++) {
-        let randomElementType = Math.floor(Math.random() * 3); // 随机选择元素类型
+        let randomElementType = Math.floor(Math.random() * 2);
         if (randomElementType === 0) {
             addSquare();
-        } else if (randomElementType === 1) {
-            addCircle();
         } else {
-            addImage();
+            addCircle();
         }
     }
 }
