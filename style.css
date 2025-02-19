@@ -1,82 +1,119 @@
-/* 默认样式，适用于较大屏幕，如桌面 */
+/* 使用柔和的背景色，简洁的颜色方案 */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f9;  /* 背景色 */
+    color: #333;  /* 字体颜色 */
 }
 
-/* 左上角 FPS 显示 */
-#FPSDisplay {
+/* 页面顶部显示 FPS 和元素数量 */
+#FPSDisplay, #ElementCount {
     position: fixed;
+    z-index: 9999;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#FPSDisplay {
     top: 10px;
     left: 10px;
-    z-index: 9999;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-weight: bold;
-    padding: 5px;
 }
 
-/* 右上角 Total Elements 显示 */
 #ElementCount {
-    position: fixed;
     top: 10px;
     right: 10px;
-    z-index: 9999;
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-weight: bold;
-    padding: 5px;
 }
 
-/* Control Panel */
+/* 控制面板 */
 #ControlPanel {
     position: fixed;
     bottom: 20px;
     left: 20px;
     background: rgba(0, 0, 0, 0.6);
-    padding: 10px;
     color: white;
-    font-family: Arial, sans-serif;
-    z-index: 10;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 200px;
+    font-size: 14px;
+    z-index: 10;
 }
 
+/* 菜单标题 */
 .ControlPanelHeading {
-    font-size: 14px;
-    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 18px;
+    margin-bottom: 10px;
     cursor: pointer;
 }
 
+#toggleMenu {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* 菜单项按钮 */
 .Control {
     cursor: pointer;
-    margin: 5px;
-    padding: 8px;
     background-color: #444;
     color: white;
-    text-align: center;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 5px;
     width: 100%;
     font-size: 14px;
+    text-align: center;
+    transition: background-color 0.3s ease;
 }
 
 .Control:hover {
     background-color: #666;
 }
 
-/* Canvas 元素样式 */
+/* 输入框和按钮的样式 */
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #3b8cc0;
+    color: white;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3676a3;
+}
+
+/* Canvas 元素 */
 canvas {
     position: absolute;
     top: 100px;
     left: 0;
     right: 0;
-    bottom: 50px;  /* 给菜单预留空间 */
+    bottom: 50px;
     margin: auto;
     display: block;
 }
@@ -86,18 +123,28 @@ canvas {
     #ControlPanel {
         bottom: 10px;
         left: 10px;
-        font-size: 12px;  /* 按钮字体缩小 */
         width: 90%;
     }
 
-    #ControlPanel .Control {
-        padding: 6px;
+    .ControlPanelHeading {
+        font-size: 16px;
+    }
+
+    #toggleMenu {
+        font-size: 16px;
+    }
+
+    .Control {
+        font-size: 12px;
+    }
+
+    input[type="number"], button {
         font-size: 12px;
     }
 
     canvas {
-        width: 90vw;  /* 画布宽度是屏幕宽度的 90% */
-        height: auto; /* 高度自动 */
-        top: 50px;    /* 调整画布顶部位置 */
+        width: 90vw;
+        height: auto;
+        top: 50px;
     }
 }

@@ -9,9 +9,9 @@ let lastFrameTime = 0;
 let frameCount = 0;
 let fps = 0;
 
-let squareObjects = [];  // 存储方块对象
-let circleObjects = [];  // 存储圆形对象
-let imageObjects = [];   // 存储图像对象
+let squareObjects = [];  // 方块
+let circleObjects = [];  // 圆形
+let imageObjects = [];   // 图片
 
 let uploadedImage = null;  // 用来存储上传的图片
 
@@ -60,10 +60,12 @@ function updateFPS(timestamp) {
     requestAnimationFrame(updateFPS);
 }
 
+// 绘制方块
 function drawMovingSquares() {
     let ctx = squareCanvas.getContext('2d');
     ctx.clearRect(0, 0, squareCanvas.width, squareCanvas.height);  // 清空画布
 
+    // 从数组末尾开始绘制
     squareObjects.forEach((square) => {
         square.x += square.vx;
         square.y += square.vy;
@@ -81,10 +83,12 @@ function drawMovingSquares() {
     });
 }
 
+// 绘制圆形
 function drawMovingCircles() {
     let ctx = circleCanvas.getContext('2d');
     ctx.clearRect(0, 0, circleCanvas.width, circleCanvas.height);  // 清空画布
 
+    // 从数组末尾开始绘制
     circleObjects.forEach((circle) => {
         circle.x += circle.vx;
         circle.y += circle.vy;
@@ -104,10 +108,12 @@ function drawMovingCircles() {
     });
 }
 
+// 绘制图片
 function drawMovingImages() {
     let ctx = imageCanvas.getContext('2d');
     ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);  // 清空画布
 
+    // 从数组末尾开始绘制
     imageObjects.forEach((imgObj) => {
         imgObj.x += imgObj.vx;
         imgObj.y += imgObj.vy;
@@ -160,10 +166,14 @@ function addImage() {
 
 // 添加方块
 function addSquare() {
+    const size = 30 + Math.random() * 40;  // 方块的大小
+    const x = Math.random() * (squareCanvas.width - size);  // 确保不会生成在画布边缘
+    const y = Math.random() * (squareCanvas.height - size);  // 确保不会生成在画布边缘
+
     squareObjects.push({
-        x: Math.random() * squareCanvas.width,
-        y: Math.random() * squareCanvas.height,
-        size: 30 + Math.random() * 40,
+        x: x,
+        y: y,
+        size: size,
         vx: 2 + Math.random() * 3,
         vy: 2 + Math.random() * 3
     });
@@ -171,10 +181,14 @@ function addSquare() {
 
 // 添加圆形
 function addCircle() {
+    const radius = 20 + Math.random() * 30;  // 圆形的半径
+    const x = Math.random() * (circleCanvas.width - radius * 2);  // 确保不会生成在画布边缘
+    const y = Math.random() * (circleCanvas.height - radius * 2);  // 确保不会生成在画布边缘
+
     circleObjects.push({
-        x: Math.random() * circleCanvas.width,
-        y: Math.random() * circleCanvas.height,
-        radius: 20 + Math.random() * 30,
+        x: x,
+        y: y,
+        radius: radius,
         vx: 2 + Math.random() * 3,
         vy: 2 + Math.random() * 3
     });
