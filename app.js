@@ -16,20 +16,26 @@ let image = new Image();
 image.src = 'pic.jpg';  // 图像路径
 
 function initialize() {
-    squareCanvas.width = 800;
-    squareCanvas.height = 500;
-    circleCanvas.width = 800;
-    circleCanvas.height = 500;
-    imageCanvas.width = 800;
-    imageCanvas.height = 500;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // 使画布适应屏幕大小
+    squareCanvas.width = width * 0.8;  // 画布宽度为屏幕宽度的 80%
+    squareCanvas.height = height * 0.5; // 画布高度为屏幕高度的 50%
+
+    circleCanvas.width = width * 0.8;
+    circleCanvas.height = height * 0.5;
+
+    imageCanvas.width = width * 0.8;
+    imageCanvas.height = height * 0.5;
+
     fpsCanvas.width = 200;
     fpsCanvas.height = 50;
 
-    squareCanvas.style.display = 'block';  // 默认显示第一个画布
+    squareCanvas.style.display = 'block';
     circleCanvas.style.display = 'block';
     imageCanvas.style.display = 'block';
 
-    // 启动动画帧更新
     requestAnimationFrame(updateFPS);
 }
 
