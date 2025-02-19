@@ -30,7 +30,7 @@ body {
     background-color: #444;
     color: white;
     text-align: center;
-    width: 100%;  /* 让按钮宽度适应 */
+    width: 100%;
 }
 
 .Control:hover {
@@ -41,9 +41,11 @@ body {
 canvas {
     position: absolute;
     top: 100px;
-    left: 100px;
-    display: block;  /* 默认显示画布 */
-    margin: 10px;
+    left: 0;
+    right: 0;
+    bottom: 50px;  /* 给菜单预留空间 */
+    margin: auto;
+    display: block;
 }
 
 /* 响应式设计：当屏幕宽度小于 768px 时进行布局调整 */

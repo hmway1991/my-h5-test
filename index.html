@@ -6,7 +6,7 @@
     <meta property="og:title" content="My H5 Page">
     <meta property="og:description" content="A simple H5 page with dynamic elements">
     <meta property="og:image" content="https://example.com/path/to/your/image.jpg"> <!-- 替换为您的缩略图URL -->
-    <meta property="og:url" content="https://hmway1991.github.io/my-h5-test/"> <!-- 替换为您网站的实际链接 -->
+    <meta property="og:url" content="https://example.com"> <!-- 替换为您网站的实际链接 -->
     <title>FPS Performance Test</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -17,6 +17,16 @@
         <div class="Control" onclick="addSquare()">Add Square</div>
         <div class="Control" onclick="addCircle()">Add Circle</div>
         <div class="Control" onclick="addImage()">Add Image</div>
+        <div class="Control">
+            <input type="file" id="imageUpload" onchange="handleFileUpload(event)" style="display: none;" />
+            <button onclick="document.getElementById('imageUpload').click()">Upload Image</button>
+        </div>
+        <div class="Control" onclick="addMultipleElements(10)">Add 10 Elements</div>
+        <div class="Control" onclick="addMultipleElements(50)">Add 50 Elements</div>
+        <div class="Control" onclick="addMultipleElements(100)">Add 100 Elements</div>
+        <div class="Control" onclick="addMultipleElements(500)">Add 500 Elements</div>
+        <div class="Control" onclick="addMultipleElements(1000)">Add 1000 Elements</div>
+        <div class="Control" onclick="addMultipleElements(5000)">Add 5000 Elements</div>
     </div>
 
     <canvas id="SquareCanvas"></canvas>

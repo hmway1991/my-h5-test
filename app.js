@@ -76,6 +76,8 @@ function drawMovingSquares() {
     squareObjects.forEach((square) => {
         square.x += square.vx;
         square.y += square.vy;
+        
+        // 限制方块活动区域在画布内
         if (square.x < 0 || square.x > squareCanvas.width - square.size) square.vx = -square.vx;
         if (square.y < 0 || square.y > squareCanvas.height - square.size) square.vy = -square.vy;
 
@@ -91,6 +93,8 @@ function drawMovingCircles() {
     circleObjects.forEach((circle) => {
         circle.x += circle.vx;
         circle.y += circle.vy;
+
+        // 限制圆形活动区域在画布内
         if (circle.x < 0 || circle.x > circleCanvas.width - circle.radius) circle.vx = -circle.vx;
         if (circle.y < 0 || circle.y > circleCanvas.height - circle.radius) circle.vy = -circle.vy;
 
@@ -108,10 +112,40 @@ function drawMovingImages() {
     imageObjects.forEach((imgObj) => {
         imgObj.x += imgObj.vx;
         imgObj.y += imgObj.vy;
+
+        // 限制图像活动区域在画布内
         if (imgObj.x < 0 || imgObj.x > imageCanvas.width - imgObj.size) imgObj.vx = -imgObj.vx;
         if (imgObj.y < 0 || imgObj.y > imageCanvas.height - imgObj.size) imgObj.vy = -imgObj.vy;
 
-        ctx.drawImage(image, imgObj.x, imgObj.y, imgObj.size, imgObj.size);  // 绘制图像
+        ctx.drawImage(imgObj.img, imgObj.x, imgObj.y, imgObj.size, imgObj.size);  // 绘制图像
+    });
+}
+
+// 上传图片功能
+let uploadedImage = null;
+
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            uploadedImage = new Image();
+            uploadedImage.src = e.target.result;
+            uploadedImage.onload = function() {
+                addImage(uploadedImage);
+            }
+        };
+        reader.readAsDataURL(file);
+}
+
+function addImage(image) {
+    imageObjects.push({
+        x: Math.random() * imageCanvas.width,
+        y: Math.random() * imageCanvas.height,
+        size: 30 + Math.random() * 50,
+        vx: 2 + Math.random() * 3,
+        vy: 2 + Math.random() * 3,
+        img: image
     });
 }
 
@@ -137,13 +171,16 @@ function addCircle() {
     });
 }
 
-// 添加图像
-function addImage() {
-    imageObjects.push({
-        x: Math.random() * imageCanvas.width,
-        y: Math.random() * imageCanvas.height,
-        size: 30 + Math.random() * 50,
-        vx: 2 + Math.random() * 3,
-        vy: 2 + Math.random() * 3
-    });
+// 添加元素批量添加功能
+function addMultipleElements(count) {
+    for (let i = 0; i < count; i++) {
+        let randomElementType = Math.floor(Math.random() * 3); // 随机选择元素类型
+        if (randomElementType === 0) {
+            addSquare();
+        } else if (randomElementType === 1) {
+            addCircle();
+        } else {
+            addImage();
+        }
+    }
 }
