@@ -1,13 +1,13 @@
 /* 控制面板样式 */
 #ControlPanel {
-    position: fixed;  /* 固定在屏幕位置 */
-    bottom: 20px;     /* 距离底部 20px */
-    left: 20px;       /* 距离左边 20px */
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
     background: rgba(0, 0, 0, 0.6);
     padding: 10px;
     color: white;
     font-family: Arial, sans-serif;
-    z-index: 10;      /* 确保菜单浮动在上层 */
+    z-index: 10;
 }
 
 .ControlPanelHeading {
@@ -41,5 +41,24 @@ canvas {
     width: 200px;
     height: 50px;
     display: none;
-    z-index: 5;  /* 确保 FPS 显示在菜单下层 */
+}
+
+/* 默认的桌面端样式 */
+#ControlPanel {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+    #ControlPanel {
+        bottom: 10px;
+        left: 10px;
+        font-size: 14px; /* 调整字体大小 */
+    }
+
+    #ControlPanel .Control {
+        padding: 8px; /* 调整按钮间距 */
+    }
 }

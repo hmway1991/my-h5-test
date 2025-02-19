@@ -8,9 +8,9 @@ let lastFrameTime = 0;
 let frameCount = 0;
 let fps = 0;
 
-let squareObjects = [];
-let circleObjects = [];
-let imageObjects = [];
+let squareObjects = [];  // 存储方块对象
+let circleObjects = [];  // 存储圆形对象
+let imageObjects = [];   // 存储图像对象
 
 let image = new Image();
 image.src = 'pic.jpg';  // 图像路径
@@ -25,22 +25,12 @@ function initialize() {
     fpsCanvas.width = 200;
     fpsCanvas.height = 50;
 
-    squareCanvas.style.display = 'none';
-    circleCanvas.style.display = 'none';
-    imageCanvas.style.display = 'none';
+    squareCanvas.style.display = 'block';  // 默认显示第一个画布
+    circleCanvas.style.display = 'block';
+    imageCanvas.style.display = 'block';
+
+    // 启动动画帧更新
     requestAnimationFrame(updateFPS);
-}
-
-function toggleSquareVisibility() {
-    squareCanvas.style.display = (squareCanvas.style.display === 'none') ? 'block' : 'none';
-}
-
-function toggleCircleVisibility() {
-    circleCanvas.style.display = (circleCanvas.style.display === 'none') ? 'block' : 'none';
-}
-
-function toggleImageVisibility() {
-    imageCanvas.style.display = (imageCanvas.style.display === 'none') ? 'block' : 'none';
 }
 
 function toggleFPSMeter() {

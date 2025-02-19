@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="My H5 Page">
+    <meta property="og:description" content="A simple H5 page with dynamic elements">
+    <meta property="og:image" content="https://example.com/path/to/your/image.jpg"> <!-- 替换为您的缩略图URL -->
+    <meta property="og:url" content="https://example.com"> <!-- 替换为您网站的实际链接 -->
     <title>FPS Performance Test</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="initialize()">
     <div id="ControlPanel">
         <div class="ControlPanelHeading">Control Panel</div>
-        <div id="chkSquare" class="Control Enabled" onclick="toggleSquareVisibility()">Square</div>
-        <div id="chkCircle" class="Control Enabled" onclick="toggleCircleVisibility()">Circle</div>
-        <div id="chkImage" class="Control Enabled" onclick="toggleImageVisibility()">Image</div>
-        <div id="chkFPS" class="Control Enabled" onclick="toggleFPSMeter()">Show FPS</div>
-
+        <div class="Control" onclick="toggleFPSMeter()">Show FPS</div>
         <div class="Control" onclick="addSquare()">Add Square</div>
         <div class="Control" onclick="addCircle()">Add Circle</div>
         <div class="Control" onclick="addImage()">Add Image</div>
