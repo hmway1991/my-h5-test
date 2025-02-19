@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS Performance Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="initialize()">
+    <div id="ControlPanel">
+        <div class="ControlPanelHeading">Control Panel</div>
+        <div id="chkSquare" class="Control Enabled" onclick="toggleSquareVisibility()">Square</div>
+        <div id="chkCircle" class="Control Enabled" onclick="toggleCircleVisibility()">Circle</div>
+        <div id="chkImage" class="Control Enabled" onclick="toggleImageVisibility()">Image</div>
+        <div id="chkFPS" class="Control Enabled" onclick="toggleFPSMeter()">Show FPS</div>
+
+        <div class="Control" onclick="addSquare()">Add Square</div>
+        <div class="Control" onclick="addCircle()">Add Circle</div>
+        <div class="Control" onclick="addImage()">Add Image</div>
+    </div>
+
+    <canvas id="SquareCanvas"></canvas>
+    <canvas id="CircleCanvas"></canvas>
+    <canvas id="ImageCanvas"></canvas>
+    <canvas id="FPSCanvas"></canvas>
+
+    <script src="app.js"></script>
+</body>
+</html>
