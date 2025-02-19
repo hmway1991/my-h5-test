@@ -1,8 +1,35 @@
 /* 默认样式，适用于较大屏幕，如桌面 */
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
+/* 左上角 FPS 显示 */
+#FPSDisplay {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 9999;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* 右上角 Total Elements 显示 */
+#ElementCount {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* Control Panel */
 #ControlPanel {
     position: fixed;
     bottom: 20px;
@@ -16,21 +43,27 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 200px;
 }
 
 .ControlPanelHeading {
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
 }
 
 .Control {
     cursor: pointer;
     margin: 5px;
-    padding: 10px;
+    padding: 8px;
     background-color: #444;
     color: white;
     text-align: center;
     width: 100%;
+    font-size: 14px;
 }
 
 .Control:hover {
@@ -53,12 +86,12 @@ canvas {
     #ControlPanel {
         bottom: 10px;
         left: 10px;
-        font-size: 14px;  /* 按钮字体缩小 */
+        font-size: 12px;  /* 按钮字体缩小 */
         width: 90%;
     }
 
     #ControlPanel .Control {
-        padding: 8px;
+        padding: 6px;
         font-size: 12px;
     }
 

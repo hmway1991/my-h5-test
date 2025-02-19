@@ -1,9 +1,10 @@
 let squareCanvas = document.getElementById("SquareCanvas");
 let circleCanvas = document.getElementById("CircleCanvas");
 let imageCanvas = document.getElementById("ImageCanvas");
-let fpsCanvas = document.getElementById("FPSCanvas");
+let fpsDisplay = document.getElementById("FPSDisplay");
+let elementCountDisplay = document.getElementById("ElementCount");
 
-let fpsMeterVisible = false;
+let fpsMeterVisible = true;  // 默认显示 FPS
 let lastFrameTime = 0;
 let frameCount = 0;
 let fps = 0;
@@ -14,16 +15,7 @@ let imageObjects = [];   // 存储图像对象
 
 let uploadedImage = null;  // 用来存储上传的图片
 
-// 切换菜单显示/隐藏
-function toggleMenu() {
-  const menuContainer = document.getElementById("menuContainer");
-  if (menuContainer.style.display === "none") {
-    menuContainer.style.display = "block";
-  } else {
-    menuContainer.style.display = "none";
-  }
-}
-
+// 初始化画布和 FPS
 function initialize() {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -38,19 +30,7 @@ function initialize() {
     imageCanvas.width = width * 0.8;
     imageCanvas.height = height * 0.5;
 
-    fpsCanvas.width = 200;
-    fpsCanvas.height = 50;
-
-    squareCanvas.style.display = 'block';
-    circleCanvas.style.display = 'block';
-    imageCanvas.style.display = 'block';
-
     requestAnimationFrame(updateFPS);
-}
-
-function toggleFPSMeter() {
-    fpsMeterVisible = !fpsMeterVisible;
-    fpsCanvas.style.display = fpsMeterVisible ? 'block' : 'none';
 }
 
 function updateFPS(timestamp) {
@@ -61,10 +41,9 @@ function updateFPS(timestamp) {
             fps = frameCount;
             frameCount = 0;
             lastFrameTime = timestamp;
-            if (fpsMeterVisible) {
-                fpsCanvas.getContext('2d').clearRect(0, 0, fpsCanvas.width, fpsCanvas.height);
-                fpsCanvas.getContext('2d').fillText(`FPS: ${fps}`, 10, 30);
-            }
+
+            // 更新 FPS 显示
+            fpsDisplay.innerText = `FPS: ${fps}`;
         }
     } else {
         lastFrameTime = timestamp;
@@ -74,6 +53,9 @@ function updateFPS(timestamp) {
     drawMovingSquares();
     drawMovingCircles();
     drawMovingImages();
+
+    // 更新页面元素数量
+    updateElementCount();
 
     requestAnimationFrame(updateFPS);
 }
@@ -85,13 +67,17 @@ function drawMovingSquares() {
     squareObjects.forEach((square) => {
         square.x += square.vx;
         square.y += square.vy;
-        
+
         // 限制方块活动区域在画布内
         if (square.x < 0 || square.x > squareCanvas.width - square.size) square.vx = -square.vx;
         if (square.y < 0 || square.y > squareCanvas.height - square.size) square.vy = -square.vy;
 
+        // 绘制方块并加描边
         ctx.fillStyle = '#ff0000';
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#000'; // 边界描边颜色
         ctx.fillRect(square.x, square.y, square.size, square.size);
+        ctx.strokeRect(square.x, square.y, square.size, square.size);  // 描边
     });
 }
 
@@ -107,10 +93,14 @@ function drawMovingCircles() {
         if (circle.x < 0 || circle.x > circleCanvas.width - circle.radius) circle.vx = -circle.vx;
         if (circle.y < 0 || circle.y > circleCanvas.height - circle.radius) circle.vy = -circle.vy;
 
+        // 绘制圆形并加描边
         ctx.beginPath();
         ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI);
         ctx.fillStyle = '#00ff00';
         ctx.fill();
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = '#000'; // 边界描边颜色
+        ctx.stroke();  // 描边
     });
 }
 
@@ -128,6 +118,12 @@ function drawMovingImages() {
 
         ctx.drawImage(imgObj.img, imgObj.x, imgObj.y, imgObj.size, imgObj.size);
     });
+}
+
+// 更新页面元素数量
+function updateElementCount() {
+    let totalElements = squareObjects.length + circleObjects.length + imageObjects.length;
+    elementCountDisplay.innerText = `Total Elements: ${totalElements}`;
 }
 
 // 上传图片功能
@@ -185,7 +181,12 @@ function addCircle() {
 }
 
 // 批量添加元素（随机生成方块或圆形）
-function addMultipleElements(count) {
+function addMultipleElements() {
+    let count = parseInt(document.getElementById('randomCount').value);
+    if (isNaN(count) || count <= 0) {
+        alert("请输入有效的数字！");
+        return;
+    }
     for (let i = 0; i < count; i++) {
         let randomElementType = Math.floor(Math.random() * 2);
         if (randomElementType === 0) {
@@ -193,5 +194,19 @@ function addMultipleElements(count) {
         } else {
             addCircle();
         }
+    }
+}
+
+// 菜单折叠功能
+function toggleMenu() {
+    const menu = document.getElementById("menuContainer");
+    const arrow = document.getElementById("toggleMenu");
+
+    if (menu.style.display === "none") {
+        menu.style.display = "block";
+        arrow.innerHTML = "&#x25BC;"; // Down arrow
+    } else {
+        menu.style.display = "none";
+        arrow.innerHTML = "&#x25B2;"; // Up arrow
     }
 }
